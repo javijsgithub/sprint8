@@ -1,0 +1,58 @@
+@import "~bootstrap/dist/css/bootstrap.min.css";
+
+
+.container-gastos-hoy {
+    margin: auto;
+    text-align: start;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container-h6-h2 {
+    align-items: center;
+}
+
+.container-h5-h6 {
+    align-items: center;
+    justify-content: center;
+}
+.container-h5-h6 h6 {
+    text-align: start;
+}
+.container-h5-h6 h5 {
+    text-align: end;
+}
+
+
+@media (max-width: 767.98px) { 
+
+    .container-gastos-hoy {
+        margin: auto;
+        text-align: start;
+        padding: 15px;
+        display: block;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container-h6-h2 {
+        margin: auto;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+    
+    .container-h5-h6 {
+        margin: auto;
+    }
+
+    .container-h5-h6 h5 {
+        text-align: center;
+    }
+
+    .container-h5-h6 h6 {
+        text-align: center;
+    }
+    
+}

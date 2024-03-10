@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
 import { useDatosContext } from '../Context/DatosContext';
+import GastosHoy from './GastosHoy';
+import '../styles/GraficaGastos.css';
 
 const GraficaGastos = () => {
   const { gastosPorDia } = useDatosContext();
@@ -13,16 +15,21 @@ const GraficaGastos = () => {
         chartInstance.current.destroy();
       }
     const ctx = chartRef.current.getContext('2d');
+
+    const getColor = (index) => {
+      return index === 6 ? 'rgb(100,149,237)' : 'salmon';
+    };
+
     chartInstance.current = new Chart(ctx, {
       type: 'bar',
       data: {
         labels: Object.keys(gastosPorDia), 
         datasets: [{
-          label: 'Gastos',
           data: Object.values(gastosPorDia),
-          backgroundColor: 'rgba(75, 192, 192, 0.2)',
-          borderColor: 'rgba(75, 192, 192, 1)',
-          borderWidth: 1
+          backgroundColor: Object.keys(gastosPorDia).map((key, index) => getColor(index)),
+          borderColor: Object.keys(gastosPorDia).map((key, index) => getColor(index)),
+          borderWidth: 1,
+          borderRadius: 8,
         }]
       },
       options: {
@@ -30,7 +37,17 @@ const GraficaGastos = () => {
           y: {
             beginAtZero: true
           }
-        }
+        },
+        plugins: {
+          legend: {
+            display: false
+          }
+        },
+        layout: {
+          padding: {
+            right: 20,
+          }
+        },
       }
     });
     return () => {
@@ -41,9 +58,13 @@ const GraficaGastos = () => {
   }, [gastosPorDia]);
 
   return (
-    <div>
-      <h2>Gastos Semanales</h2>
+    <div className='container-grafico'>
+      <h2>Gastos - Última semana</h2>
+      <br/>
       <canvas ref={chartRef} width="400" height="200"></canvas>
+      <br/>
+      <hr/>
+      <GastosHoy />
     </div>
   );
 };

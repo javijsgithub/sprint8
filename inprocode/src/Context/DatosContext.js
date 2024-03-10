@@ -25,14 +25,21 @@ export const DatosProvider = ({ children }) => {
 
     // Calcular los gastos de hoy
     const diaActual = new Date().toLocaleDateString('es-ES', { weekday: 'long' }).toLowerCase();
-    const gastoHoy = gastosPorDia[diaActual];
+    console.log("Dia actual:", diaActual);
+    const gastoHoy = gastosPorDia[diaActual] || 0;
+    console.log("Gasto de hoy:", gastosPorDia[diaActual]);
     setGastoHoy(gastoHoy);
 
     // Calcular la variación respecto a ayer
     const dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'];
     const indiceDiaActual = dias.indexOf(diaActual);
     const gastoAyer = indiceDiaActual > 0 ? gastosPorDia[dias[indiceDiaActual - 1]] : 0;
-    const variacion = ((gastoHoy - gastoAyer) / gastoAyer) * 100;
+    let variacion = 0;
+    if (gastoAyer !== 0) {
+      variacion = ((gastoHoy - gastoAyer) / gastoAyer) * 100;
+      // Limitar el resultado a dos decimales
+      variacion = parseFloat(variacion.toFixed(2));
+    }
     setVariacion(variacion);
   }, [gastosPorDia]);
 
@@ -42,7 +49,8 @@ export const DatosProvider = ({ children }) => {
         balanceSemana,
         gastoHoy,
         variacion,
-        gastosPorDia, setGastosPorDia
+        gastosPorDia, 
+        setGastosPorDia
       }}
     >
       {children}

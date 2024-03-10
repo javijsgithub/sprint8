@@ -1,13 +1,14 @@
 import React from 'react';
 import { useDatosContext } from '../Context/DatosContext';
+import '../styles/BalanceSemana.css';
 
 const BalanceSemana = () => {
   const { balanceSemana } = useDatosContext();
 
   return (
-    <div>
-      <h2>Balance de gastos de la semana</h2>
-      <p>Total: ${balanceSemana}</p>
+    <div className='container-total'>
+      <h6>Balance total</h6>
+      <h3>{balanceSemana} €</h3>
     </div>
   );
 };

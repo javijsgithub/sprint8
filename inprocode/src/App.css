@@ -1,0 +1,7 @@
+@import "~bootstrap/dist/css/bootstrap.min.css";
+
+
+.container-app {
+    background-color: rgb(247, 231, 236);
+    padding: 25px;
+}
