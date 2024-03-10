@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
+import { useTranslation } from 'react-i18next';
 import { useDatosContext } from '../Context/DatosContext';
 import GastosHoy from './GastosHoy';
 import '../styles/GraficaGastos.css';
@@ -8,6 +9,7 @@ const GraficaGastos = () => {
   const { gastosPorDia } = useDatosContext();
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (chartInstance.current) {
@@ -59,7 +61,7 @@ const GraficaGastos = () => {
 
   return (
     <div className='container-grafico'>
-      <h2>Gastos - Última semana</h2>
+       <h2>{t('expenses_last_week')}</h2>
       <br/>
       <canvas ref={chartRef} width="400" height="200"></canvas>
       <br/>

@@ -5,3 +5,32 @@
     background-color: rgb(247, 231, 236);
     padding: 25px;
 }
+
+.container-language-buttons {
+    margin: auto;
+    width: 60%;
+    text-align: end;
+}
+
+.btn-spain {
+    border: none;
+}
+.btn-spain:hover {
+    opacity: 0.7;
+}
+
+.btn-uk {
+    margin-left: 2px;
+    border: none;
+}
+.btn-uk:hover {
+    opacity: 0.7;
+}
+
+.btn-catalonia {
+    margin-left: 2px;
+    border: none;
+}
+.btn-catalonia:hover {
+    opacity: 0.7;
+}
