@@ -1,22 +1,27 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import GraficaGastos from '../components/GraficaGastos';
-import { DatosProvider } from '../Context/DatosContext';
+import { render, screen } from '@testing-library/react';
+import GraficaGastos from './GraficaGastos';
 
-test('renders gráfica de gastos semanales', () => {
-  // Simula datos de prueba para la gráfica
-  const datosGrafica = [20, 30, 40, 50, 60];
+jest.mock('../Context/DatosContext', () => ({
+  useDatosContext: () => ({
+    gastosPorDia: {
+      lunes: 100,
+      martes: 200,
+      miercoles: 150,
+      jueves: 300,
+      viernes: 250,
+      sabado: 200,
+      domingo: 150,
+    },
+    currentWeekIndex: 0,
+  }),
+}));
 
-  const { container } = render(
-    <DatosProvider value={{ datosGrafica }}>
-      <GraficaGastos />
-    </DatosProvider>
-  );
+describe('GraficaGastos Component', () => {
+  it('renders chart correctly', () => {
+    render(<GraficaGastos />);
+    const chartElement = screen.getByText('Expenses - This week');
+    expect(chartElement).toBeInTheDocument();
+  });
 
-  // Verifica que el componente renderice correctamente la gráfica
-  const canvasElement = container.querySelector('canvas');
-  expect(canvasElement).toBeInTheDocument();
-
-  // Aquí podrías realizar pruebas adicionales para verificar que la gráfica se renderiza correctamente
-  // Sin embargo, para pruebas más exhaustivas, necesitarías utilizar herramientas especializadas para pruebas de gráficos, como @testing-library/react-hooks o similares.
 });

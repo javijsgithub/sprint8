@@ -1,23 +1,25 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import GastosHoy from '../components/GastosHoy';
-import { DatosProvider } from '../Context/DatosContext';
+import { render, screen } from '@testing-library/react';
+import GastosHoy from './GastosHoy';
 
-test('renders gastos totales de hoy y variación', () => {
-  // Simula datos de prueba para gastos de hoy y variación
-  const gastoHoy = 100;
-  const variacion = 10;
+jest.mock('../Context/DatosContext', () => ({
+  useDatosContext: () => ({
+    gastoHoy: 50,
+    variacion: 10,
+  }),
+}));
 
-  const { getByText } = render(
-    <DatosProvider value={{ gastoHoy, variacion }}>
-      <GastosHoy />
-    </DatosProvider>
-  );
+describe('GastosHoy Component', () => {
+  it('renders expense for today correctly', () => {
+    render(<GastosHoy />);
+    const expenseElement = screen.getByText('50 €');
+    expect(expenseElement).toBeInTheDocument();
+  });
 
-  // Verifica que el componente renderice correctamente los datos de gastos de hoy y variación
-  const gastosHoyElement = getByText(`Total: $${gastoHoy}`);
-  expect(gastosHoyElement).toBeInTheDocument();
+  it('renders variation percentage correctly', () => {
+    render(<GastosHoy />);
+    const variationElement = screen.getByText('10 %'); 
+    expect(variationElement).toBeInTheDocument();
+  });
 
-  const variacionElement = getByText(`Variación respecto a ayer: ${variacion}%`);
-  expect(variacionElement).toBeInTheDocument();
 });
