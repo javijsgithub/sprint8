@@ -6,8 +6,8 @@ import GastosHoy from './GastosHoy';
 import '../styles/GraficaGastos.css';
 
 const GraficaGastos = () => {
-  const { gastosPorDia } = useDatosContext();
-  const chartRef = useRef(null);
+  const { gastosPorDia, currentWeekIndex } = useDatosContext(); 
+   const chartRef = useRef(null);
   const chartInstance = useRef(null);
   const { t } = useTranslation();
 
@@ -57,16 +57,16 @@ const GraficaGastos = () => {
           chartInstance.current.destroy();
         }
       };
-  }, [gastosPorDia]);
+  }, [gastosPorDia, currentWeekIndex]);
 
   return (
     <div className='container-grafico'>
-       <h2>{t('expenses_last_week')}</h2>
+      <h2>{currentWeekIndex === 0 ?  t('expenses_this_week') : currentWeekIndex === 1 ? t('expenses_last_week') : t('expenses_two_weeks_ago')}</h2>
       <br/>
       <canvas ref={chartRef} width="400" height="200"></canvas>
       <br/>
-      <hr/>
-      <GastosHoy />
+      {currentWeekIndex === 0 && <hr/>}
+      {currentWeekIndex === 0 && <GastosHoy />}
     </div>
   );
 };

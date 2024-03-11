@@ -34,3 +34,10 @@
 .btn-catalonia:hover {
     opacity: 0.7;
 }
+
+
+@media (max-width: 767.98px) { 
+    .container-language-buttons {
+        text-align: center;
+    }
+}
