@@ -14,7 +14,7 @@ export const DatosProvider = ({ children }) => {
     {
       lunes: 500,
       martes: 300,
-      miercoles: 400,
+      miercoles: 575,
       jueves: 200,
       viernes: 150,
       sabado: 225,
